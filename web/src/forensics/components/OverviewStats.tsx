@@ -8,10 +8,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
   Tooltip,
   ResponsiveContainer,
   Legend,
@@ -49,12 +45,6 @@ export default function OverviewStats({
     : [];
 
   const fee = summary.fee_rate_stats;
-  const feeData = [
-    { name: 'Min', value: fee.min_sat_vb, fill: '#3fb950' },
-    { name: 'Median', value: fee.median_sat_vb, fill: '#58a6ff' },
-    { name: 'Mean', value: fee.mean_sat_vb, fill: '#bc8cff' },
-    { name: 'Max', value: fee.max_sat_vb, fill: '#f85149' },
-  ];
 
   const flaggedPct =
     summary.total_transactions_analyzed > 0

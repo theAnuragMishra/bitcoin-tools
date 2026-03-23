@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Tip from "./components/Tooltip";
 import ResultsPanel from "./components/Results";
 import type { ApiResponse, BuildReport, ErrorReport } from "./types";
+import "./index.css";
 
 const SAMPLE_FIXTURE = `{
   "network": "mainnet",

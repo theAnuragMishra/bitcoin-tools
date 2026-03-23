@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(247, 147, 26, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.12), transparent 28%),
+    #080b12;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: inherit;
+  color: #e5eef8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+@theme {
+  --color-btc-orange: #f7931a;
+  --color-btc-orange-light: #ffb84d;
+  --color-btc-dark: #0d1117;
+  --color-btc-darker: #010409;
+  --color-btc-card: #161b22;
+  --color-btc-card-hover: #1c2129;
+  --color-btc-border: #30363d;
+  --color-btc-text: #e6edf3;
+  --color-btc-muted: #8b949e;
+  --color-btc-accent: #58a6ff;
+  --color-btc-green: #3fb950;
+  --color-btc-red: #f85149;
+  --color-btc-purple: #bc8cff;
+  --color-btc-yellow: #d29922;
+  --color-btc-cyan: #39d2c0;
+  --color-btc-pink: #f778ba;
+}

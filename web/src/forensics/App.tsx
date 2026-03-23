@@ -4,6 +4,7 @@ import Header from './components/Header';
 import FileUpload from './components/FileUpload';
 import HeroSection from './components/HeroSection';
 import AnalysisView from './components/AnalysisView';
+import "./index.css";
 
 export default function App() {
   const [blkFile, setBlkFile] = useState<File | null>(null);
