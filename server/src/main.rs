@@ -12,8 +12,8 @@ use std::net::SocketAddr;
 use tower_http::cors::{Any, CorsLayer};
 use tower_http::services::ServeDir;
 
-use core_tools::visualiser::analysis::block_report::analyze_block_files;
 use core_tools::visualiser::analysis::tx_report::analyze_fixture;
+use core_tools::{psbt::builder, visualiser::analysis::block_report::analyze_block_files};
 
 #[derive(Debug, Deserialize)]
 struct AnalyzeRequest {
@@ -32,18 +32,6 @@ struct AnalyzeRequest {
     /// For block mode: base64-encoded xor.dat bytes
     #[serde(default)]
     xor_data: Option<String>,
-}
-
-#[derive(Debug, Serialize)]
-struct ErrorResponse {
-    ok: bool,
-    error: ErrorDetail,
-}
-
-#[derive(Debug, Serialize)]
-struct ErrorDetail {
-    code: String,
-    message: String,
 }
 
 fn error_response(code: &str, message: &str) -> (StatusCode, Json<Value>) {
@@ -222,6 +210,22 @@ async fn analyze_multipart(mut multipart: Multipart) -> Response {
     }
 }
 
+async fn build_handler(Json(body): Json<Value>) -> impl IntoResponse {
+    let json_str = serde_json::to_string(&body).unwrap();
+
+    match builder::build_from_fixture(&json_str) {
+        Ok(report) => {
+            let json_val = serde_json::to_value(&report).unwrap();
+            (StatusCode::OK, Json(json_val))
+        }
+        Err(err) => {
+            let error_report = err.to_error_report();
+            let json_val = serde_json::to_value(&error_report).unwrap();
+            (StatusCode::BAD_REQUEST, Json(json_val))
+        }
+    }
+}
+
 #[tokio::main]
 async fn main() {
     let port: u16 = std::env::var("PORT")
@@ -234,34 +238,18 @@ async fn main() {
         .allow_methods(Any)
         .allow_headers(Any);
 
-    // Serve static files from web/dist if it exists
-    let static_dir = std::path::PathBuf::from("web/dist");
-    let serve_static = if static_dir.exists() {
-        Some(ServeDir::new(&static_dir).append_index_html_on_directories(true))
-    } else {
-        None
-    };
-
-    let app = if let Some(static_service) = serve_static {
-        Router::new()
-            .route("/api/health", get(health))
-            .route("/api/analyze", post(analyze))
-            .route(
-                "/api/analyze/upload",
-                post(analyze_multipart).layer(DefaultBodyLimit::disable()),
-            )
-            .fallback_service(static_service)
-            .layer(cors)
-    } else {
-        Router::new()
-            .route("/api/health", get(health))
-            .route("/api/analyze", post(analyze))
-            .route(
-                "/api/analyze/upload",
-                post(analyze_multipart).layer(DefaultBodyLimit::disable()),
-            )
-            .layer(cors)
-    };
+    let app = Router::new()
+        .route("/api/health", get(health))
+        .route("/api/analyze", post(analyze))
+        .route(
+            "/api/analyze/upload",
+            post(analyze_multipart).layer(DefaultBodyLimit::disable()),
+        )
+        .route(
+            "/api/build",
+            post(build_handler).layer(DefaultBodyLimit::disable()),
+        )
+        .layer(cors);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     println!("http://127.0.0.1:{}", port);

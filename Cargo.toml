@@ -13,7 +13,8 @@ bech32 = "0.11"
 thiserror = "2"
 secp256k1 = "0.31"
 anyhow = "1"
-axum = { version = "0.7", features = ["multipart"] }
+axum = { version = "0.7", features = ["multipart", "json"] }
 tokio = { version = "1", features = ["full"] }
 tower-http = { version = "0.5", features = ["fs", "cors"] }
 base64 = "0.22"
+bitcoin = { version = "0.32", features = ["base64", "serde", "rand-std"] }

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+.tt-wrap {
+  position: relative;
+  display: inline-flex;
+  cursor: help;
+  color: white;
+}
+.tt {
+  position: fixed;
+  background: #141824;
+  border: 1px solid #2d3548;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  width: max-content;
+  max-width: min(320px, 90vw);
+  z-index: 9999;
+  pointer-events: none;
+  line-height: 1.5;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  color: white;
+}
+.tt::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #141824;
+  border-left: 1px solid #2d3548;
+  border-bottom: 1px solid #2d3548;
+  transform: rotate(45deg);
+  left: 50%;
+  margin-left: -4px;
+  bottom: -5px;
+}
+.tt-bottom::after {
+  top: -5px;
+  bottom: auto;
+  border-left: 1px solid #2d3548;
+  border-bottom: 1px solid #2d3548;
+  transform: rotate(225deg);
+}

@@ -13,3 +13,4 @@ hex = { workspace = true }
 secp256k1 = { workspace = true }
 bs58 = { workspace = true }
 bech32 = "0.11"
+bitcoin = { workspace = true }
