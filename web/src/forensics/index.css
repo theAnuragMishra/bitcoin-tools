@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+html {
+  font-size: 17px;
+}
+
+@theme {
+  --color-btc-orange: #f7931a;
+  --color-btc-orange-light: #ffb84d;
+  --color-btc-dark: #0d1117;
+  --color-btc-darker: #010409;
+  --color-btc-card: #161b22;
+  --color-btc-card-hover: #1c2129;
+  --color-btc-border: #30363d;
+  --color-btc-text: #e6edf3;
+  --color-btc-muted: #8b949e;
+  --color-btc-accent: #58a6ff;
+  --color-btc-green: #3fb950;
+  --color-btc-red: #f85149;
+  --color-btc-purple: #bc8cff;
+  --color-btc-yellow: #d29922;
+  --color-btc-cyan: #39d2c0;
+  --color-btc-pink: #f778ba;
+}
+
+body {
+  background-color: var(--color-btc-darker);
+  color: var(--color-btc-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-btc-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-btc-muted);
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}

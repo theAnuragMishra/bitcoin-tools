@@ -17,4 +17,4 @@ axum = { version = "0.7", features = ["multipart", "json"] }
 tokio = { version = "1", features = ["full"] }
 tower-http = { version = "0.5", features = ["fs", "cors"] }
 base64 = "0.22"
-bitcoin = { version = "0.32", features = ["base64", "serde", "rand-std"] }
+bitcoin = { version = "0.32", features = ["base64", "serde", "rand-std", "std"] }
