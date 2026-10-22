@@ -59,7 +59,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-btc-darker">
+    <div className="forensics-app min-h-screen bg-btc-darker">
       <Header />
       <main className="max-w-7xl mx-auto px-6 py-8">
         {data ? (

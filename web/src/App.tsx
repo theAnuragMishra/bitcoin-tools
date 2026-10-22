@@ -30,7 +30,7 @@ function HomePage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#080b12] text-slate-100">
+        <div className="home-page min-h-screen">
             <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16">
                 <div className="max-w-3xl space-y-8">
                     <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-slate-300">
