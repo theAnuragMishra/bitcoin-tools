@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Tip from "./components/Tooltip";
 import ResultsPanel from "./components/Results";
 import type { ApiResponse, BuildReport, ErrorReport } from "./types";
+import { API_BASE } from "../config";
 import "./index.css";
 
 const SAMPLE_FIXTURE = `{
@@ -69,7 +70,7 @@ function App() {
     setReport(null);
     try {
       const parsed = JSON.parse(fixtureJson);
-      const res = await fetch("/api/build", {
+      const res = await fetch(`${API_BASE}/api/build`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed),

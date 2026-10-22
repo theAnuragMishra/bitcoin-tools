@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./index.css";
 import type { TxReport, BlockReport } from "./types";
+import { API_BASE } from "../config";
 import AppHeader from "./components/AppHeader";
 import TxInputCard from "./components/TxInputCard";
 import BlockInputCard from "./components/BlockInputCard";
@@ -32,7 +33,7 @@ export default function App() {
       } catch {
         body = { fixture: fixtureText };
       }
-      const res = await fetch("/api/analyze", {
+      const res = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -65,7 +66,7 @@ export default function App() {
       formData.append("blk", blkFile);
       formData.append("rev", revFile);
       formData.append("xor", xorFile);
-      const res = await fetch("/api/analyze/upload", {
+      const res = await fetch(`${API_BASE}/api/analyze/upload`, {
         method: "POST",
         body: formData,
       });

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FileOutput } from './types';
+import { API_BASE } from '../config';
 import Header from './components/Header';
 import FileUpload from './components/FileUpload';
 import HeroSection from './components/HeroSection';
@@ -26,7 +27,7 @@ export default function App() {
       formData.append('rev', revFile);
       formData.append('xor', xorFile);
 
-      const res = await fetch('/api/analyze', {
+      const res = await fetch(`${API_BASE}/api/forensics`, {
         method: 'POST',
         body: formData,
       });

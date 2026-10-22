@@ -316,11 +316,18 @@ async fn main() {
     let cors = CorsLayer::new()
         .allow_origin(Any)
         .allow_methods(Any)
-        .allow_headers(Any);
+        .allow_headers(Any)
+        .expose_headers(Any)
+        .max_age(std::time::Duration::from_secs(86400));
 
     let app = Router::new()
+        .route("/", get(health))
+        .route("/health", get(health))
         .route("/api/health", get(health))
-        .route("/api/analyze", post(analyze))
+        .route(
+            "/api/analyze",
+            post(analyze).layer(DefaultBodyLimit::max(512 * 1024 * 1024)),
+        )
         .route(
             "/api/analyze/upload",
             post(analyze_multipart).layer(DefaultBodyLimit::max(512 * 1024 * 1024)),
@@ -336,7 +343,7 @@ async fn main() {
         .layer(cors);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
-    println!("http://127.0.0.1:{}", port);
+    println!("Listening on http://0.0.0.0:{}", port);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
